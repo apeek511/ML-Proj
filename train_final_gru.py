@@ -68,7 +68,7 @@ if __name__ == "__main__":
         "learning_rate": [1e-2, 1e-3, 1e-4],
         "l2_weight": [0, 1e-4, 1e-3, 1e-2],
         "batch_size": [8, 16, 32, 64],
-        "epoch_patience": [5],
+        "epoch_patience": [5], 
     }
 
     best_params = hyperparameter_search_gru(param_grid, train_seqs, train_labels, N_FOLDS, device)

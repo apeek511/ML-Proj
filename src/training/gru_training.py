@@ -85,7 +85,12 @@ def train_gru_model(
         bad_epochs = 0
         validating = True
 
-    loss_func = nn.CrossEntropyLoss()
+    # calculate class weights to address imbalance between authenticated and stranger classes
+    n_stranger = (train_labels == 0).sum().float()
+    n_auth = (train_labels == 1).sum().float()
+    class_weights = torch.tensor([1.0, n_stranger / n_auth]).to(device)
+    loss_func = nn.CrossEntropyLoss(weight=class_weights)
+
     # l2_weight decay helps keep weights smaller, potentially improving generalization
     optimizer = optim.SGD(params=model.parameters(), lr=learning_rate, weight_decay=l2_weight)
 

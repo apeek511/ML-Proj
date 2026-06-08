@@ -9,6 +9,9 @@ import numpy as np
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.svm import SVC
 
+import warnings
+warnings.filterwarnings("ignore")
+
 from src.utils import (
     file_to_sequences,
     make_binary_labels,
@@ -32,9 +35,7 @@ if __name__ == "__main__":
 
     # === LOAD DATA ===
     train_seqs_raw = file_to_sequences(train_file_path, pad_sequences=True, max_seq_len=29)
-    print("train shape:", train_seqs_raw.shape)
     test_seqs_raw = file_to_sequences(test_file_path, pad_sequences=True, max_seq_len=29)
-    print("test shape:", test_seqs_raw.shape)
 
     # === STANDARDIZE ===
     # Load the scaler saved during GRU training for identical preprocessing
@@ -84,7 +85,7 @@ if __name__ == "__main__":
 
     cv = StratifiedKFold(n_splits=5)
     svm = GridSearchCV(
-        SVC(kernel="rbf", probability=True),
+        SVC(kernel="rbf", probability=True, class_weight="balanced"),
         param_grid,
         cv=cv,
         scoring="f1_macro",
