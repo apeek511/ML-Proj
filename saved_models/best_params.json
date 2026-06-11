@@ -1,0 +1,17 @@
+{
+  "batch_size": 32,
+  "bidirectional": true,
+  "dropout_prob": 0.0,
+  "epoch_patience": 5,
+  "epochs": 189.0,
+  "hidden_size": 32,
+  "l2_weight": 0.01,
+  "learning_rate": 0.01,
+  "n_classes": 2,
+  "input_size": 12,
+  "authenticated_speakers": [
+    0,
+    1,
+    2
+  ]
+}
